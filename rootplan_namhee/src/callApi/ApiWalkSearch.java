@@ -17,7 +17,7 @@ public class ApiWalkSearch{
 
    // dfs를 위한 거리 값 가져올떄
    public int walkApi(int sno, int eno, double sx, double sy, double ex, double ey) {
-	   System.out.println("walk call!");
+	   //System.out.println("ddddddddddddd걷기");
       int findTime = 0;
       try {
           String apiURL = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&format=xml&startX="
@@ -36,7 +36,7 @@ public class ApiWalkSearch{
               br = new BufferedReader(new InputStreamReader(con.getInputStream()));
           } else {
               br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-              System.out.print("walk fail!");
+              //System.out.print("실패");
           }
           sb = new StringBuilder();
           String line;
@@ -65,7 +65,6 @@ public class ApiWalkSearch{
    
    // 대중교통 걷기 재호출시
    public InfoPT resultWalkPTApi(double sx, double sy, double ex, double ey) { // 대중교통 걷기 전용
-	   System.out.println("walk recall!");
 	   InfoPT infopt = new InfoPT();
 	   
 	   try {
@@ -96,7 +95,7 @@ public class ApiWalkSearch{
 				con.disconnect();
 				String data = sb.toString();
 
-				System.out.println("recall walk fail:" + data);	
+				//System.out.println("d실패" + data);	
 				infopt.setError(true);
 				return infopt;
 			}
@@ -120,7 +119,7 @@ public class ApiWalkSearch{
 			//System.out.println("성공 : " + data);
 			
 			for (int i = 0; i < array.length; i++) {
-				if (array[i].equals("id")){					
+				if (array[i].equals("id")){
 					Thread.sleep(550);
 					return resultWalkPTApi(sx, sy, ex, ey);
 				}

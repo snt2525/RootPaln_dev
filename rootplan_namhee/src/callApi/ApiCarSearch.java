@@ -36,7 +36,7 @@ public class ApiCarSearch {
    
    // 차 api 이차원 배열 돌면서 몇번쨰인지 보기 
    public void carApi() {
-	   System.out.println("carApi start");
+	   ////System.out.println("carApi 들어옴");
 	   int len = ad.size();
 	   try {
 		   for(int i=0; i<len-1; i++) {
@@ -48,12 +48,12 @@ public class ApiCarSearch {
 		} catch (Exception e) {
 			//System.out.println("문제발생쓰");
 		} 
-	   System.out.println("car: fill array finish");
+	   //System.out.println("자동차 이차원 배열 다 채움, 자동차 끝");
    }
 
    // carApi에서 호출당해, 자동차 호출
    public void callApi(int sno, int eno, double sx, double sy, double ex, double ey) {
-	   System.out.println("callApi call!");
+	   ////System.out.println("callApi 들어옴");
 	   CalculateDist calDist = new CalculateDist();
 	   double distanceMeter =  calDist.distance(sx, sy, ex, ey, "meter"); // 직선거리 구하기     
        if(distanceMeter <= 800) {     	   // 직선거리 800m이하이면 걷기로 넘기기
@@ -135,15 +135,15 @@ public class ApiCarSearch {
 			} 
 	   }
 	   
-	   System.out.println("call car result api");
-		  for(int i =0;i<listSize-1;i++)
-			  System.out.print(result[i]+" ");
+	   //System.out.println("차 결과 api호출");
+		//  for(int i =0;i<listSize-1;i++)
+			  //System.out.print(result[i]+" ");
 
-	   System.out.println("result 보기");
-	   for(int i=0; i<listSize-1; i++) {
-		   System.out.print(result[i]+ " ");
-	   }
-	   System.out.println();
+	   //System.out.println("result 보기");
+	 //  for(int i=0; i<listSize-1; i++) {
+		   //System.out.print(result[i]+ " ");
+	 //  }
+	   //System.out.println();
    }
 
    // 마지막에 결과 재호출해서 한노드에서 한 노드로 총 정보 가져오기 
@@ -180,7 +180,7 @@ public class ApiCarSearch {
 					sb.append(line + "\n");
 				}
 
-				//System.out.println("자동차 불러옴");
+				////System.out.println("자동차 불러옴");
 				br.close();
 				con.disconnect();
 				String data = sb.toString();

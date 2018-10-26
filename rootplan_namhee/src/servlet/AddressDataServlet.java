@@ -46,9 +46,9 @@ public class AddressDataServlet extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");
       
       PrintWriter out = response.getWriter();
-      System.out.println("connect addressDataServlet: "+ request.getParameter("menuIndex"));
+      //System.out.println("연결: "+ request.getParameter("menuIndex"));
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));
-      System.out.println("customerID : "+request.getParameter("customerID"));
+      ////System.out.println("customerID : "+request.getParameter("customerID"));
       int ID = Integer.parseInt(request.getParameter("customerID"));
       
       
@@ -131,7 +131,6 @@ public class AddressDataServlet extends HttpServlet {
             
          case 8: //목적지가 몇 개인지
             int result7 = ad[ID].listSize();
-            System.out.print(result7);
             out.print(result7);
             break;   
             
@@ -172,35 +171,33 @@ public class AddressDataServlet extends HttpServlet {
         	 //System.out.println("13," +what +":"+ r[ID].ptFlag);
         	 int result13 = 0; 
         	 if(what == 0) { //대중교통
-        		 try {
-        			 for(int i=0;i<50;i++) {
-        				 Thread.sleep(500);
-        				 System.out.println("pt:"+r[ID].ptFlag+", "+sd[ID].GetStartData() +", "+sd[ID].GetLastData());
-        				 if(r[ID].ptFlag == 1 && sd[ID].GetStartData() != -1 && sd[ID].GetLastData() != -1) {
-    	        			 System.out.println("pt:"+r[ID].ptFlag);
-    	        			 result13 = 1;
-    	        			 break;
-    	        		 }
-        			 }
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-        	 }else if(what == 1){ //자동차        		  			 
-    			try {
-    				for(int i =0;i<50;i++) {         
-					Thread.sleep(500);
-					System.out.println("car While:"+r[ID].carFlag);
-					if(r[ID].carFlag == 1 && sd[ID].GetStartData() != -1 && sd[ID].GetLastData() != -1) {
-        				System.out.println("car While:"+r[ID].carFlag);
-	        			 result13 = 1;
-	        			 break;
-	        		 }
-    				}
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();    			 
-				}
+	        		 try {
+	        			 while(true) {
+	        				 Thread.sleep(500);
+	        				 if(r[ID].ptFlag == 1 && sd[ID].GetStartData() != -1 && sd[ID].GetLastData() != -1) {
+	    	        			 //System.out.println("대:"+r[ID].ptFlag+", "+sd[ID].GetStartData() +", "+sd[ID].GetLastData());
+	    	        			 result13 = 1;
+	    	        			 break;
+	    	        		 }
+	        			 }
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	        	 }else if(what == 1){ //자동차        		  			 
+        			try {
+        				while(true) {         
+						Thread.sleep(500);
+						if(r[ID].carFlag == 1 && sd[ID].GetStartData() != -1 && sd[ID].GetLastData() != -1) {
+	        				//System.out.println("자동차While:"+r[ID].carFlag);
+		        			 result13 = 1;
+		        			 break;
+		        		 }
+        				}
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();    			 
+					}
         	 }
         	 //System.out.println(result13);
         	 out.print(result13);
@@ -212,9 +209,8 @@ public class AddressDataServlet extends HttpServlet {
             out.print(result10);
             break;
             
-         case 15:          	 
+         case 15:             
            if(apiFlag[ID]) {
-        	  System.out.print("start call api data: 15");
               int a = Integer.parseInt(request.getParameter("a"));
               int b = Integer.parseInt(request.getParameter("b"));
               String car = request.getParameter("carBlock");
@@ -224,10 +220,10 @@ public class AddressDataServlet extends HttpServlet {
             
          case 16:  //대중교통 dfs or 마커 결과 재호출 
            int how = Integer.parseInt(request.getParameter("how"));
-           System.out.println("16 / addressServlet call");            
+           //System.out.println("16번 연결");            
            r[ID].callShortestPath(sd[ID].GetStartData(),sd[ID].GetLastData(), sd[ID].isSame(), how); // 자동차 1, 대중교통  0     
            if(r[ID].dataTotal.isError()) {
-        	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4");
+        	   //System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4");
         	   out.print("0"); // 에러 존재, 경로제공 안함
            }
            break;
