@@ -33,7 +33,7 @@ function getLocalSearchData(){
    $.ajax({
        url:"/CallSearchLocalApi",
        dataType: "text",
-       data: $("#SiData").serialize()+"&customerID="+customerID,
+       data: $("#SiData").serialize()+"&customerID="+customerID+"&language="+sessionStorage.getItem("language"),
        success: function(data){
     	   if(data!='0'){
 	    	   var htmlStr = "";
@@ -88,7 +88,7 @@ function getLocalSearchData(){
    });
 }
 
-// 크롤링에서 어느 한 데이터 클릭했을 때
+// 한 데이터 클릭했을 때
 function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면 latlngTmp.x와 y를 바꿔보자.'
    flag = 1;
    cntNow = 0; //앨범 순서
@@ -100,7 +100,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
        url:"/CallSearchLocalApi",
        dataType: "text",
        type : "post",
-       data: $("#getImgURL").serialize()+"&customerID="+customerID,
+       data: $("#getImgURL").serialize()+"&customerID="+customerID+"&language="+sessionStorage.getItem("language"),
        success: function(data){
     	  var cnt = 0;   	  
           $(data).find("Data").each(function(){
@@ -212,7 +212,7 @@ function callSearchApi(num){
             url:"/CallSearchLocalApi",
             type : "post",
             dataType: "xml",
-            data: $("#searchApi").serialize()+"&customerID="+customerID,
+            data: $("#searchApi").serialize()+"&customerID="+customerID+"&language="+sessionStorage.getItem("language"),
             success: function(data){               
                $(data).find("ResultData").each(function(){   
                   if($(this).find('title').text() == "l.l"){

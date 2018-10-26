@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import callApi.ConvertLanguage;
 import callApi.LocalSearch;
 import callApi.LocalSearchImg;
 import callApi.ShowLocalSearch;
@@ -30,8 +31,10 @@ public class SearchAPIServlet extends HttpServlet {
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	      response.setContentType("text/html;charset=UTF-8");	      
 	      PrintWriter out = response.getWriter();
-	      //System.out.println("검색api호출");
+	      System.out.println("검색api호출");
+	      
 	      int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));
+	      int language = Integer.parseInt(request.getParameter("language"));
 	      
 		  switch(menuIndex) {
 			  case 1:  //지도 클릭, 검색
@@ -41,9 +44,13 @@ public class SearchAPIServlet extends HttpServlet {
 				  String findLocation = request.getParameter("findLocation"); //타이틀
 				  String address = request.getParameter("address"); // 도로명 주소
 				  result = ls.mapLocalSearch(num, findLocation, address);
+				  if(language != 0) { //언어 셋이 한국어가 하니면 번역
+					 ConvertLanguage cl = new ConvertLanguage();
+					 result = cl.KR_to_Eng(result);
+				  }
 				  out.print(result);
 				  break;
-			  case 2:
+			  case 2:	//이전에 선택한 지역과 같은 지역인지 판별, 다른 지역이면 데이터 호출
 				  String Si = request.getParameter("Si");
 		          String clickSi = request.getParameter("clickSi");
 		          String keywordVal = request.getParameter("keywordVal");
@@ -56,7 +63,7 @@ public class SearchAPIServlet extends HttpServlet {
 	                  out.print(result1);
 	               }
 				  break;	
-			  case 3:
+			  case 3: 
 				  String result2 = "";
 				  LocalSearchImg img = new LocalSearchImg();
 				  String localName = request.getParameter("localName");

@@ -19,21 +19,6 @@ $.ajaxSetup({
 	type:"post"
 });
 
-function test(){
-	$.ajax({
-	      url : "/CallSearchLocalApi", //인터넷망
-	      type : "post",
-	      data :"name="+"짜증난다 그만좀하자"+"&menuIndex="+4,
-	      dataType : "text",
-	      success : function(data) {
-	    	  alert(data);
-	      },
-	      error : function(xhr, status, error) {
-	         alert("에러발생");
-	      }
-	   });
-}
-
 
 //$("infoBtn").on("click", '#btn' , function(){
 function clickADDBtn(){

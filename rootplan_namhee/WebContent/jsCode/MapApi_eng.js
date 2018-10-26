@@ -27,7 +27,7 @@ var infoWindow = new naver.maps.InfoWindow({
 
 map.setCursor('pointer');
 
-// map을 눌렀을때 보여줌
+// map을 눌렀을때 크롤링 보여줌
 function searchCoordinateToAddress(latlng) {
    latlngTmp = latlng;
    flag = 1;
